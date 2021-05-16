@@ -1,0 +1,28 @@
+[package]
+name = "airtag-glitcher"
+version = "0.1.0"
+authors = ["Willem Melching <willem.melching@gmail.com>"]
+edition = "2018"
+
+[profile.release]
+opt-level = 3 # turn on maximum optimizations. We only have 64kB
+lto = true      # Link-time-optimizations for further size reduction
+
+[profile.dev]
+opt-level = 3
+lto = true
+
+[dependencies]
+cortex-m = "^0.6.3"      # Access to the generic ARM peripherals
+cortex-m-rt = "^0.6.12"  # Startup code for the ARM Core
+cortex-m-rtic = "^0.5.0"    # Panic handler
+embedded-hal = "^0.2.4"  # Access to generic embedded functions (`set_high`)
+panic-halt = "^0.2.0"    # Panic handler
+usb-device = "^0.2.7"
+usbd-serial = "^0.1.1"
+
+# Access to the stm32f103 HAL.
+[dependencies.stm32f1xx-hal]
+# Bluepill contains a 64kB flash variant which is called "medium density"
+features = ["stm32f103", "stm32-usbd", "rt", "medium"]
+version = "^0.7.0"
